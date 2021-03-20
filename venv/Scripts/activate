@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\neil8\PycharmProjects\test-google\venv"
+VIRTUAL_ENV="C:\Users\neil8\OneDrive\Documents\PackHacks2021\test-google\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

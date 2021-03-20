@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="C:\Users\neil8\PycharmProjects\test-google\venv"
+$env:VIRTUAL_ENV="C:\Users\neil8\OneDrive\Documents\PackHacks2021\test-google\venv"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name
