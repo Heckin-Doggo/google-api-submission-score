@@ -6,7 +6,10 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/classroom.coursework.students']
+SCOPES = ['https://www.googleapis.com/auth/classroom.coursework.students',
+          'https://www.googleapis.com/auth/classroom.courses.readonly',
+          'https://www.googleapis.com/auth/classroom.courses'
+          ]
 
 # 'https://www.googleapis.com/auth/classroom.courses.readonly'
 
@@ -50,23 +53,23 @@ def main():
     ########### Assignment Creation ###########
 
     # use scope https://www.googleapis.com/auth/classroom.coursework.students
-    course_id = 301301107341        # insert your own course id here
-
-    coursework = {
-        'title': 'Ant colonies',
-        'description': '''Read the article about ant colonies
-                          and complete the quiz.''',
-        'materials': [
-            {'link': {'url': 'http://example.com/ant-colonies'}},
-            {'link': {'url': 'http://example.com/ant-quiz'}}
-        ],
-        'workType': 'ASSIGNMENT',
-        'state': 'PUBLISHED',
-        'dueDate': ""
-    }
-    coursework = service.courses().courseWork().create(
-        courseId=course_id, body=coursework).execute()
-    print('Assignment created with ID {%s}' % coursework.get('id'))
+    # course_id = 301301107341        # insert your own course id here
+    #
+    # coursework = {
+    #     'title': 'Ant colonies',
+    #     'description': '''Read the article about ant colonies
+    #                       and complete the quiz.''',
+    #     'materials': [
+    #         {'link': {'url': 'http://example.com/ant-colonies'}},
+    #         {'link': {'url': 'http://example.com/ant-quiz'}}
+    #     ],
+    #     'workType': 'ASSIGNMENT',
+    #     'state': 'PUBLISHED',
+    #     'dueDate': ""
+    # }
+    # coursework = service.courses().courseWork().create(
+    #     courseId=course_id, body=coursework).execute()
+    # print('Assignment created with ID {%s}' % coursework.get('id'))
 
 
 
