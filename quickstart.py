@@ -6,7 +6,9 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/classroom.courses.readonly']
+SCOPES = ['https://www.googleapis.com/auth/classroom.coursework.students']
+
+# 'https://www.googleapis.com/auth/classroom.courses.readonly'
 
 def main():
     """Shows basic usage of the Classroom API.
@@ -32,7 +34,7 @@ def main():
 
     service = build('classroom', 'v1', credentials=creds)
 
-    # Call the Classroom API
+    # Call the Classroom API (comment this portion out when creating assignments)
     results = service.courses().list(pageSize=10).execute()
     courses = results.get('courses', [])
 
@@ -42,6 +44,50 @@ def main():
         print('Courses:')
         for course in courses:
             print(course['name'])
+            print(course.get('id'))
+
+
+    ########### Assignment Creation ###########
+
+    # use scope https://www.googleapis.com/auth/classroom.coursework.students
+    course_id = 301301107341        # insert your own course id here
+
+    coursework = {
+        'title': 'Ant colonies',
+        'description': '''Read the article about ant colonies
+                          and complete the quiz.''',
+        'materials': [
+            {'link': {'url': 'http://example.com/ant-colonies'}},
+            {'link': {'url': 'http://example.com/ant-quiz'}}
+        ],
+        'workType': 'ASSIGNMENT',
+        'state': 'PUBLISHED',
+        'dueDate': ""
+    }
+    coursework = service.courses().courseWork().create(
+        courseId=course_id, body=coursework).execute()
+    print('Assignment created with ID {%s}' % coursework.get('id'))
+
+
+
+    ########### Course Creation ###########
+
+    # use scope https://www.googleapis.com/auth/classroom.courses
+    course = {
+        'name': 'Chem',
+        'section': 'Period 2',
+        'descriptionHeading': 'Welcome to 10th Grade Biology',
+        'description': """We'll be learning about about the
+                     structure of living creatures from a
+                     combination of textbooks, guest lectures,
+                     and lab work. Expect to be excited!""",
+        'room': '301',
+        'ownerId': 'me',
+        'courseState': 'PROVISIONED'
+    }
+    course = service.courses().create(body=course).execute()
+    print('Course created: %s %s' % (course.get('name'), course.get('id')))
+
 
 if __name__ == '__main__':
     main()
