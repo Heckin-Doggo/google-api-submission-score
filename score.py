@@ -100,7 +100,9 @@ def main():
                   (submission.get('id'),
                    submission.get('creationTime')))
 
-    # TODO: Delete token on exit.
+    # Delete token
+    if os.path.exists('token.json'):
+        os.remove("token.json")
 
 
 
